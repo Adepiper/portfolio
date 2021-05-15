@@ -6,7 +6,7 @@ import wiremoneyLeft from '../assets/portfolio/wiremoneyleft.png';
 import wiremoneyRight from '../assets/portfolio/wiremoneyright.png';
 import pipesLeft from '../assets/portfolio/pipesleft.jpg';
 import pipesRight from '../assets/portfolio/pipesright.jpg';
-import { TimelineMax } from 'gsap';
+import { gsap } from 'gsap';
 // import hoverButton from '../assets/portfolio/hover.svg';
 
 const Home = () => {
@@ -61,9 +61,11 @@ const Home = () => {
          const portfolioContainer = document.querySelector(
             '.portfolio-container'
          );
-         const tl = new TimelineMax();
+         // const tl = new TimelineMax();
 
-         tl.fromTo(currentLeft, 0.3, { opacity: 1 }, { opacity: 0 })
+         gsap
+            .timeline()
+            .fromTo(currentLeft, 0.3, { opacity: 1 }, { opacity: 0 })
             .fromTo(currentRight, 0.3, { opacity: 1 }, { opacity: 0 }, '-=0.2')
             .to(portfolioContainer, 0.3, {
                background: backgrounds[number],
