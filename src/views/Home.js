@@ -28,8 +28,8 @@ const Home = () => {
       let current = 0;
       let scrollSlide = 0;
       slides.forEach((slide, index) => {
-         slide.addEventListener('click', function () {
-            changeDots(this);
+         slide.parentElement.addEventListener('click', function () {
+            changeDots(this.querySelector('svg'));
             nextSlide(index);
          });
       });
@@ -91,8 +91,8 @@ const Home = () => {
          current = number;
       };
 
-      document.addEventListener('wheel', throttle(scrollChange, 10000));
-      document.addEventListener('touchmove', throttle(scrollChange, 10000));
+      // document.addEventListener('wheel', throttle(scrollChange, 10000));
+      // document.addEventListener('touchmove', throttle(scrollChange, 10000));
       function scrollChange(event) {
          if (event.deltaY > 0) {
             scrollSlide += 1;
