@@ -90,6 +90,7 @@ const Home = () => {
       };
 
       document.addEventListener('wheel', throttle(scrollChange, 1500));
+      document.addEventListener('touchmove', throttle(scrollChange, 1500));
       function scrollChange(event) {
          if (event.deltaY > 0) {
             scrollSlide += 1;
