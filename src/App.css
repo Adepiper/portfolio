@@ -6,7 +6,13 @@
 
 .portfolio-container {
    color: white;
-   background: radial-gradient(50% 50% at 50% 50%, #5c5d6e 0%, #101123 100%);
+   background-image: radial-gradient(
+      50% 50% at 50% 50%,
+      #5c5d6e 0%,
+      #101123 100%
+   );
+   overflow: hidden;
+   height: 100vh;
 }
 a {
    text-decoration: none;
@@ -36,6 +42,16 @@ nav p {
    display: grid;
    grid-template-columns: 5% 1fr 1fr 1fr 5%;
 }
+
+.wiremoney,
+.pipes {
+   position: absolute;
+   bottom: 0%;
+   left: 0%;
+   opacity: 0;
+   pointer-events: none;
+   width: 100%;
+}
 .project-image-container {
    /* overflow: hidden; */
    height: 400px;
@@ -45,9 +61,12 @@ nav p {
 }
 
 .project-image-container img {
-   height: 400px;
+   height: 300px;
    transition: transform 0.3s ease-in;
    cursor: pointer;
+   border-radius: 20px;
+   box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+   width: 170px;
 }
 .project-image-container img:first-child {
    transform: rotate(-10deg);
@@ -92,11 +111,16 @@ nav p {
 
 .pages svg {
    cursor: pointer;
+   opacity: 0.5;
 }
 
-.pages svg:hover {
-   animation: dot 0.5s ease-in-out infinite alternate;
+.pages svg.active {
+   opacity: 1;
 }
+
+/* .pages svg:hover {
+   animation: dot 0.5s ease-in-out infinite alternate;
+} */
 
 @keyframes dot {
    0% {
@@ -129,6 +153,7 @@ nav p {
 @media (max-width: 991px) {
    .project-image-container img {
       height: 300px;
+      width: auto;
    }
    .pages p {
       font-size: 14px;

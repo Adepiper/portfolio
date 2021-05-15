@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Nav from './utilities/Nav';
 import laraleft from '../assets/portfolio/laraleft.png';
 import lararight from '../assets/portfolio/lararight.png';
@@ -6,9 +6,128 @@ import wiremoneyLeft from '../assets/portfolio/wiremoneyleft.png';
 import wiremoneyRight from '../assets/portfolio/wiremoneyright.png';
 import pipesLeft from '../assets/portfolio/pipesleft.jpg';
 import pipesRight from '../assets/portfolio/pipesright.jpg';
+import { TimelineMax } from 'gsap';
 // import hoverButton from '../assets/portfolio/hover.svg';
 
 const Home = () => {
+   // const page = document.querySelectorAll('.page');
+
+   useEffect(() => {
+      init();
+      // console.log(page);
+   });
+
+   const init = () => {
+      const pages = document.querySelectorAll('.page');
+      const slides = document.querySelectorAll('.slide');
+      const backgrounds = [
+         `radial-gradient(50% 50% at 50% 50%, #5C5D6E 0%, #101123 100%)`,
+         `radial-gradient(50% 50% at 50% 50%, #024873 0%, #101123 100%)`,
+         `radial-gradient(50% 50% at 50% 50%, #530B0B 0%, #000000 100%)`,
+      ];
+      let current = 0;
+      let scrollSlide = 0;
+      slides.forEach((slide, index) => {
+         slide.addEventListener('click', function () {
+            changeDots(this);
+            nextSlide(index);
+         });
+      });
+
+      const changeDots = (element) => {
+         slides.forEach((slide) => {
+            slide.classList.remove('active');
+         });
+         element.classList.add('active');
+      };
+
+      const nextSlide = (number) => {
+         const nextPage = pages[number];
+         const currentPage = pages[current];
+         const nextLeft = nextPage.querySelector(
+            '.project-image-container .left'
+         );
+         const nextRight = nextPage.querySelector(
+            '.project-image-container .right'
+         );
+         const currentLeft = currentPage.querySelector(
+            '.project-image-container .left'
+         );
+         const currentRight = currentPage.querySelector(
+            '.project-image-container .right'
+         );
+
+         const nextText = nextPage.querySelector('.details');
+         const portfolioContainer = document.querySelector(
+            '.portfolio-container'
+         );
+         const tl = new TimelineMax();
+
+         tl.fromTo(currentLeft, 0.3, { opacity: 1 }, { opacity: 0 })
+            .fromTo(currentRight, 0.3, { opacity: 1 }, { opacity: 0 }, '-=0.2')
+            .to(portfolioContainer, 0.3, {
+               background: backgrounds[number],
+            })
+            .fromTo(
+               currentPage,
+               0.3,
+               { opacity: 1, pointerEvents: 'all' },
+               { opacity: 0, pointerEvents: 'none' }
+            )
+            .fromTo(
+               nextPage,
+               0.3,
+               { opacity: 0, pointerEvents: 'none' },
+               { opacity: 1, pointerEvents: 'all' },
+               '-=0.6'
+            )
+            .fromTo(nextLeft, 0.3, { y: '-40%' }, { y: '10%' }, '-=0.8')
+            .fromTo(nextRight, 0.3, { y: '40%' }, { y: '0%' }, '-=0.8')
+            .fromTo(nextText, 0.3, { opacity: 0, y: 0 }, { opacity: 1, y: 0 })
+            .set(nextLeft, { clearProps: 'all' })
+            .set(nextRight, { clearProps: 'all' });
+         current = number;
+      };
+
+      document.addEventListener('wheel', throttle(scrollChange, 1500));
+      function scrollChange(event) {
+         if (event.deltaY > 0) {
+            scrollSlide += 1;
+         } else {
+            scrollSlide -= 1;
+         }
+
+         if (scrollSlide > 2) {
+            scrollSlide = 0;
+         }
+         if (scrollSlide < 0) {
+            scrollSlide = 2;
+         }
+         switchDots(scrollSlide);
+         nextSlide(scrollSlide);
+      }
+
+      const switchDots = (dotNumber) => {
+         const active = slides[dotNumber];
+         slides.forEach((slide) => {
+            slide.classList.remove('active');
+         });
+         active.classList.add('active');
+      };
+   };
+
+   const throttle = (func, limit) => {
+      let inThrottle;
+      return function () {
+         const args = arguments;
+         const context = this;
+         if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => (inThrottle = false), limit);
+         }
+      };
+   };
    return (
       <div className='portfolio-container'>
          <Nav />
@@ -22,8 +141,8 @@ const Home = () => {
                   </p>
                </div>
                <div className='project-image-container'>
-                  <img src={laraleft} alt='hello' />{' '}
-                  <img src={lararight} alt='hello' />
+                  <img className='left' src={laraleft} alt='hello' />{' '}
+                  <img className='right' src={lararight} alt='hello' />
                </div>
             </section>
             <section className='page wiremoney'>
@@ -36,8 +155,8 @@ const Home = () => {
                   </p>
                </div>
                <div className='project-image-container'>
-                  <img src={wiremoneyLeft} alt='hello' />{' '}
-                  <img src={wiremoneyRight} alt='hello' />
+                  <img className='left' src={wiremoneyLeft} alt='hello' />{' '}
+                  <img className='right' src={wiremoneyRight} alt='hello' />
                </div>
             </section>
             <section className='page pipes'>
@@ -49,8 +168,8 @@ const Home = () => {
                   </p>
                </div>
                <div className='project-image-container'>
-                  <img src={pipesLeft} alt='hello' />{' '}
-                  <img src={pipesRight} alt='hello' />
+                  <img className='left' src={pipesLeft} alt='hello' />{' '}
+                  <img className='right' src={pipesRight} alt='hello' />
                </div>
             </section>
 
@@ -70,7 +189,7 @@ const Home = () => {
                         cy='20'
                         r='20'
                         fill='white'
-                        fill-opacity='0.49'
+                        fillOpacity='1'
                      />
                   </svg>
                </div>
@@ -89,7 +208,7 @@ const Home = () => {
                         cy='20'
                         r='20'
                         fill='white'
-                        fill-opacity='0.49'
+                        fillOpacity='1'
                      />
                   </svg>
                </div>
@@ -108,7 +227,7 @@ const Home = () => {
                         cy='20'
                         r='20'
                         fill='white'
-                        fill-opacity='0.49'
+                        fillOpacity='1'
                      />
                   </svg>
                </div>
