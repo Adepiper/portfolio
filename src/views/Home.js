@@ -26,7 +26,7 @@ const Home = () => {
          `radial-gradient(50% 50% at 50% 50%, #530B0B 0%, #000000 100%)`,
       ];
       let current = 0;
-      let scrollSlide = 0;
+      // let scrollSlide = 0;
       slides.forEach((slide, index) => {
          slide.parentElement.addEventListener('click', function () {
             changeDots(this.querySelector('svg'));
@@ -93,44 +93,44 @@ const Home = () => {
 
       // document.addEventListener('wheel', throttle(scrollChange, 10000));
       // document.addEventListener('touchmove', throttle(scrollChange, 10000));
-      function scrollChange(event) {
-         if (event.deltaY > 0) {
-            scrollSlide += 1;
-         } else {
-            scrollSlide -= 1;
-         }
+      // function scrollChange(event) {
+      //    if (event.deltaY > 0) {
+      //       scrollSlide += 1;
+      //    } else {
+      //       scrollSlide -= 1;
+      //    }
 
-         if (scrollSlide > 2) {
-            scrollSlide = 0;
-         }
-         if (scrollSlide < 0) {
-            scrollSlide = 2;
-         }
-         switchDots(scrollSlide);
-         nextSlide(scrollSlide);
-      }
+      //    if (scrollSlide > 2) {
+      //       scrollSlide = 0;
+      //    }
+      //    if (scrollSlide < 0) {
+      //       scrollSlide = 2;
+      //    }
+      //    switchDots(scrollSlide);
+      //    nextSlide(scrollSlide);
+      // }
 
-      const switchDots = (dotNumber) => {
-         const active = slides[dotNumber];
-         slides.forEach((slide) => {
-            slide.classList.remove('active');
-         });
-         active.classList.add('active');
-      };
+      // const switchDots = (dotNumber) => {
+      //    const active = slides[dotNumber];
+      //    slides.forEach((slide) => {
+      //       slide.classList.remove('active');
+      //    });
+      //    active.classList.add('active');
+      // };
    };
 
-   const throttle = (func, limit) => {
-      let inThrottle;
-      return function () {
-         const args = arguments;
-         const context = this;
-         if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => (inThrottle = false), limit);
-         }
-      };
-   };
+   // const throttle = (func, limit) => {
+   //    let inThrottle;
+   //    return function () {
+   //       const args = arguments;
+   //       const context = this;
+   //       if (!inThrottle) {
+   //          func.apply(context, args);
+   //          inThrottle = true;
+   //          setTimeout(() => (inThrottle = false), limit);
+   //       }
+   //    };
+   // };
    return (
       <div className='portfolio-container'>
          <Nav />

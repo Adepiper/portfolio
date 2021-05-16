@@ -313,3 +313,46 @@ nav p {
       padding: 10px 0;
    }
 }
+
+.nav-open {
+   position: absolute;
+   top: 0px;
+   left: 0px;
+   width: 100%;
+   background-color: white;
+   height: 50vh;
+   z-index: 1;
+   color: black;
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+   transform: translateY(-100%);
+}
+.nav-open a {
+   color: black;
+}
+
+.nav-open > div {
+   text-align: center;
+}
+
+.links,
+.contact p {
+   margin: 10px 0;
+}
+
+.links i {
+   margin: 0 10px;
+}
+nav > a,
+nav > p {
+   z-index: 2;
+   /* color: black; */
+}
+
+@media (max-width: 787px) {
+   .nav-open {
+      flex-direction: column;
+      padding-top: 30px;
+   }
+}
